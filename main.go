@@ -70,7 +70,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	doc, err := goquery.NewDocumentFromReader(strings.NewReader(content.Body.Storage.Representation))
+	doc, err := goquery.NewDocumentFromReader(strings.NewReader(content.Body.Storage.Value))
 	if err != nil {
 		log.Fatal(err)
 	}
