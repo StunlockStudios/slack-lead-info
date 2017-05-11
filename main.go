@@ -179,7 +179,8 @@ func getSlackInfo() (slackInfo slackInfo) {
 				if strings.HasPrefix(token, "@") {
 					user := getUser(userList, token[1:])
 					if user == nil {
-						slackInfo.errMsg(fmt.Sprintf("Failed to find a user called %s from the channel '%s' with topic '%s'", token[1:], channel.Name, channel.Topic.Value))
+						slackInfo.errMsg(fmt.Sprintf("Failed to find an owner called %s from the channel '%s' with topic '%s'", token[1:], channel.Name, channel.Topic.Value))
+						continue
 					}
 					team.Owner = new(slackUser)
 					*team.Owner = slackUserToAPI(*user)
@@ -189,6 +190,7 @@ func getSlackInfo() (slackInfo slackInfo) {
 				user := getUser(userList, member)
 				if user == nil {
 					slackInfo.errMsg(fmt.Sprintf("Failed to find a matching user in the slack user list for user %s in channel %s", member, channel.Name))
+					continue
 				}
 				team.Members = append(team.Members, slackUserToAPI(*user))
 			}
